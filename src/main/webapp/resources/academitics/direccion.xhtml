@@ -1,0 +1,75 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+	<composite:interface>
+		<composite:attribute name="direccion"
+			type="com.academitics.text.PersonaDireccion" />
+	</composite:interface>
+
+	<composite:implementation>
+		<p:panelGrid id="direccionControl" columns="2"
+			styleClass="ui-responsive">
+			<pm:field>
+				<p:outputLabel for="departamento" value="Departamento:" />
+				<h:selectOneMenu id="departamento"
+					value="${cc.attrs.direccion.depto}">
+					<p:ajax update="cboMunicipio" listener="#{personaDireccion.cambio}" />
+					<f:selectItems value="#{personaDireccion.departamentos}" />					
+				</h:selectOneMenu>
+			</pm:field>
+			<pm:field id = "cboMunicipio">
+				<p:outputLabel for="municipio" value="Municipio:" />
+				<h:selectOneMenu id="municipio"
+					value ="${cc.attrs.direccion.municipio}">									
+					<f:selectItems value="#{personaDireccion.municipios}" />
+				</h:selectOneMenu>
+			</pm:field>
+			<pm:field>
+				<p:outputLabel for="zona" value="Zona:" />
+				<p:inputText id="zona" value="${cc.attrs.direccion.zona}" />
+			</pm:field>
+			<pm:field>
+				<p:outputLabel for="avenida" value="Avenida:" />
+				<p:inputText id="avenida"
+					value="${cc.attrs.direccion.avenida}" />
+			</pm:field>
+			<pm:field>
+				<p:outputLabel for="calle" value="Calle:" />
+				<p:inputText id="calle" value="${cc.attrs.direccion.avenida}" />
+			</pm:field>
+			<pm:field>
+				<p:outputLabel for="aldea" value="Aldea:" />
+				<p:inputText id="aldea" value="${cc.attrs.direccion.aldea}" />
+			</pm:field>
+			<pm:field>
+				<p:outputLabel for="cacerio" value="Cacerío:" />
+				<p:inputText id="cacerio"
+					value="${cc.attrs.direccion.cacerio}" />
+			</pm:field>
+			<pm:field>
+				<p:outputLabel for="barrio" value="Barrio:" />
+				<p:inputText id="barrio" value="${cc.attrs.direccion.barrio}" />
+			</pm:field>
+			<pm:field>
+				<p:outputLabel for="colonia" value="Colonia:" />
+				<p:inputText id="colonia"
+					value="${cc.attrs.direccion.colonia}" />
+			</pm:field>
+			<pm:field>
+				<p:outputLabel for="canton" value="Cantón:" />
+				<p:inputText id="canton" value="${cc.attrs.direccion.canton}" />
+			</pm:field>
+			<pm:field>
+				<p:outputLabel for="nocasa" value="No. Casa:" />
+				<p:inputText id="nocasa"
+					value="${cc.attrs.direccion.numeroCasa}" />
+			</pm:field>
+		</p:panelGrid>
+	</composite:implementation>
+</ui:component>

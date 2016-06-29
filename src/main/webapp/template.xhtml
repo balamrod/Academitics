@@ -1,0 +1,122 @@
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#160;">
+    <!ENTITY bull "&#8226;">
+    <!ENTITY copy "&#169;">
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:academitics="http://java.sun.com/jsf/composite/academitics">
+
+<h:head>
+	<f:facet name="first">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport"
+			content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<link rel="shortcut icon" type="image/png"
+			href="#{request.contextPath}/resources/main/images/favicon.png" />
+	</f:facet>
+
+	<title>AcademiTics - C.E.R.B.Y</title>
+	<h:outputStylesheet name="main/css/showcase.css" />
+	<h:outputStylesheet name="main/css/perfect-scrollbar.css" />
+	<h:outputStylesheet name="main/css/sh.css" />
+	<h:outputScript name="jquery/jquery.js" library="primefaces" />
+	<h:outputScript name="jquery/jquery-plugins.js" library="primefaces" />
+	<h:outputScript name="main/js/perfect-scrollbar.js" />
+	<h:outputScript name="main/js/showcase.js" />
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push([ '_setAccount', 'UA-12200033-1' ]);
+		_gaq.push([ '_trackPageview' ]);
+
+		(function() {
+			var ga = document.createElement('script');
+			ga.type = 'text/javascript';
+			ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl'
+					: 'http://www')
+					+ '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+</h:head>
+
+<h:body>
+
+
+	<div class="ContentSideSections" id="PFTopLinksCover"
+		style="height: 60px;">
+		<h:graphicImage name="main/images/logocolegio.jpg"
+			style="height:90px;margin-top:-15px"
+			styleClass="floatLeft marginRight10" />
+		<a id="LOGOTEXTSIDE" href="#{request.contextPath}/index.xhtml"> <span
+			class="dispBlock logoDarkText fontSize24">Centro Educativo
+				Runawal B'alam Ya'</span> <span
+			class="dispBlock logoBlueText fontSize18 mediumFont">AcademiTics.com</span>
+		</a> <a href="#{request.contextPath}/ui/misc/mockosx.xhtml"
+			class="PFTopLinks floatRight boldFont marginRight20 Ocultar"> <span
+			class=" PFDarkText">Hermione Granger</span> <br /> <br /> <span
+			class="PFGrayText">Menu</span> <br /> <br /> <span
+			class="PFGrayText"> <p:selectOneMenu id="onemenu" value="2016">					
+					<f:selectItem itemLabel="2014" itemValue="2014" />
+					<f:selectItem itemLabel="2015" itemValue="2015" />
+					<f:selectItem itemLabel="2016" itemValue="2016" />
+				</p:selectOneMenu>
+		</span>
+		</a> <a href="#{request.contextPath}/ui/misc/mockosx.xhtml"
+			style="border-left: 1px solid #ccc;"
+			class="PFTopLinks floatRight boldFont marginRight20"> <h:graphicImage
+				name="main/images/Hermione.jpg" />
+		</a>
+
+
+		<div class="mobileLogoCover">
+			<!-- <h:graphicImage name="main/images/logo.png" style="height:40px;" styleClass="floatLeft marginRight10"/>  -->
+			<span class="dispBlock logoDarkText fontSize24 floatLeft"
+				style="margin-top: 5px">C.E.R.B.Y.<span
+				class="dispBlock logoBlueText fontSize18 mediumFont"
+				style="margin-top: 5px">AcadmiTics.com</span>
+			</span>
+		</div>
+	</div>
+	<h:form id="form"
+		style="max-width:1200px;margin:auto;padding:10px;font-size:small">
+		<div class="ui-fluid">
+			<academitics:dashboardAlumno></academitics:dashboardAlumno>
+		</div>
+
+		<p:stack icon="/resources/demo/images/dock/stack.png" expanded="true"
+			style="z-index: 500;">
+			<p:menuitem value="Inicio"
+				icon="/resources/demo/images/dock/home.png" url="#" />
+			<p:menuitem value="Actualización"
+				icon="/resources/demo/images/dock/music.png" url="#" />
+			<p:menuitem value="Pagos"
+				icon="/resources/demo/images/dock/video.png" url="#" />
+			<p:menuitem value="Horarios"
+				icon="/resources/demo/images/dock/email.png" url="#" />
+			<p:menuitem value="Notas"
+				icon="/resources/demo/images/dock/portfolio.png" url="#" />
+		</p:stack>
+		<p:dock position="bottom" style="z-index: 500;">
+			<p:menuitem value="Inicio"
+				icon="/resources/demo/images/dock/home.png" url="#" />
+			<p:menuitem value="Actualización"
+				icon="/resources/demo/images/dock/music.png" url="#" />
+			<p:menuitem value="Pagos"
+				icon="/resources/demo/images/dock/video.png" url="#" />
+			<p:menuitem value="Horarios"
+				icon="/resources/demo/images/dock/email.png" url="#" />
+			<p:menuitem value="Notas"
+				icon="/resources/demo/images/dock/portfolio.png" url="#" />
+		</p:dock>
+	</h:form>
+</h:body>
+</html>

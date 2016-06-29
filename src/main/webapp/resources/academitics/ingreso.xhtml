@@ -1,0 +1,37 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+	<composite:interface />
+
+	<composite:implementation id="impl">
+		<!-- #{component.parent.clientId} -->
+		<p:messages id="msgs" autoUpdate="true" closable="true"
+			showDetail="true" style="font-size: small;" />
+		<p:panelGrid columns="3" id="pnlIng"
+			columnClasses="ui-grid-col-5,ui-grid-col-5, ui-grid-col-5"
+			layout="grid" styleClass="ui-panelgrid-blank">
+			<p:commandButton title="Guardar"  icon="ui-icon-disk"
+			    action="#{idiomaIngreso.insertar}" update="@form"
+				 style="position: inline;" id="btnGuardar"> 
+				<f:ajax execute="@form" />
+			</p:commandButton>
+			<p:commandButton title="Limpiar" type="submit" icon="ui-icon-refresh"
+				action="#{idiomaHelper.limpiar}" process="@this" id="btnLimpiar">
+				<f:ajax execute="@form" />
+			</p:commandButton>
+
+		</p:panelGrid>
+
+		<p:panelGrid id="catalogoidioma" columns="2"
+			binding="#{idiomaIngreso.panelGrid}"
+			columnClasses="ui-grid-col-3,ui-grid-col-10" layout="grid"
+			styleClass="ui-panelgrid-blank">
+		</p:panelGrid>
+	</composite:implementation>
+</ui:component>

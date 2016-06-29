@@ -1,0 +1,138 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:academitics="http://java.sun.com/jsf/composite/academitics">
+
+	<composite:interface />
+
+	<composite:implementation>
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+		</p:dialog>
+
+		<br />
+		<p:dataTable id="tabla" var="objetos" editable="true"
+			value="#{idiomaHelper.setIdiomas}"
+			filteredValue="#{idiomaHelper.setIdiomasFilt}"
+			paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  {Exporters}"
+			paginator="true" rows="10">
+
+			<p:ajax event="rowEdit" listener="#{idiomaHelper.editar}" />
+			<p:ajax event="rowEditCancel" />
+
+			<f:facet name="{Exporters}" style="float:right">
+				<h:commandLink>
+					<p:graphicImage value="/recursos/imagenes/excel.png" width="24" />
+					<p:dataExporter type="xls" target="tabla" fileName="cars" />
+				</h:commandLink>
+
+				<h:commandLink>
+					<p:graphicImage value="/recursos/imagenes/pdf.png" width="24" />
+					<p:dataExporter type="pdf" target="tabla" fileName="cars" />
+				</h:commandLink>
+
+				<h:commandLink>
+					<p:graphicImage value="/recursos/imagenes/csv.png" width="24" />
+					<p:dataExporter type="csv" target="tabla" fileName="cars" />
+				</h:commandLink>
+
+			</f:facet>
+
+			<f:facet name="header">
+				<p:panelGrid id="catalogoidioma" columns="2"
+					columnClasses="ui-grid-col-3,ui-grid-col-10" layout="grid"
+					styleClass="ui-panelgrid-blank">
+					<p:commandButton id="nuevo" type="submit" value="Nuevo"
+						update=":form:test:ingreso:catalogoidioma"
+						action="#{idiomaHelper.nuevo}" icon="ui-icon-calculator"
+						onclick="PF('dlgIng').show()">
+						<f:ajax />
+					</p:commandButton>
+
+					<p:commandButton id="toggler" type="button" value="Columnas"
+						icon="ui-icon-calculator" />
+					<p:columnToggler datasource="tabla" trigger="toggler" />
+				</p:panelGrid>
+			</f:facet>	
+
+			<p:columns value="#{idiomaHelper.columnas}" var="column"
+				sortBy="#{objetos[column.property]}" columnIndexVar="colIndex"
+				filterBy="#{objetos[column.property]}"
+				rendered="#{column.header != 'DESCRIPCION'}">
+				<f:facet name="header">
+					<h:outputText value="#{column.header}" />
+				</f:facet>
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{objetos[column.property]}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{objetos[column.property]}" style="width:96%"
+							label="#{column.header}" />
+					</f:facet>
+				</p:cellEditor>
+			</p:columns>
+
+			<p:column style="width:62px">
+				<p:commandButton update="form:test:carDetail" type="submit"
+					action="#{idiomaHelper.mostrar}" icon="ui-icon-search" title="Ver"
+					style="width:19px;">
+					<f:setPropertyActionListener value="#{objetos}"
+						target="#{idiomaHelper.seleccionado}" />
+					<f:ajax />
+				</p:commandButton>
+				<p:commandButton icon="ui-icon-trash" title="eliminar"
+					process="@this" action="#{idiomaHelper.eliminar}" update="@form"
+					style="width:19px;">
+					<f:setPropertyActionListener value="#{objetos}"
+						target="#{idiomaHelper.seleccionado}" />
+					<p:confirm header="Confirmar"
+						message="¿Seguro que desea eliminar el registro?"
+						icon="ui-icon-alert" />
+				</p:commandButton>
+				<p:commandButton type="submit" title="editar"
+					action="#{idiomaHelper.editar}" style="width:19px;"
+					update=":form:test:ingreso:catalogoidioma" icon="ui-icon-pencil">
+					<f:setPropertyActionListener value="#{objetos}"
+						target="#{idiomaHelper.seleccionado}" />
+					<f:ajax />
+				</p:commandButton>
+			</p:column>
+			
+		</p:dataTable>
+
+
+		<p:dialog header="Detalle" widgetVar="dlgDet" modal="true"
+			style="max-width:500px" showEffect="fade" hideEffect="fade"
+			resizable="false">
+			<p:panelGrid id="carDetail" binding="#{idiomaHelper.panelGrid}"
+				columns="2" />
+		</p:dialog>
+
+		<p:dialog header="Ingreso" widgetVar="dlgIng" modal="true"
+			style="min-width: 40px;" rendered="true" showEffect="fade"
+			hideEffect="fade">
+			<academitics:ingresoIdioma id="ingreso" />
+		</p:dialog>
+
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+			<p:panelGrid columns="3" columnClasses="ui-grid-col-6,ui-grid-col-6"
+				layout="grid" styleClass="ui-panelgrid-blank">
+				<p:commandButton value="Si" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:panelGrid>
+		</p:confirmDialog>
+	</composite:implementation>
+</ui:component>

@@ -1,0 +1,172 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+</h:head>
+
+<h:body>
+	<h:form id="form"
+		style="max-width:1200px;margin:auto;padding:10px;font-size:small">
+		<div class="ui-fluid">
+			<h3 style="margin-top: 0">Nuevo Ciclo Escolar:</h3>
+			<p:steps activeIndex="#{cicloTrs.indice}" id="stepCiclo">
+				<p:menuitem value="Jornadas" url="www.google.com" />
+				<p:menuitem value="Nivel" />
+				<p:menuitem value="Carreras" />
+			</p:steps>
+
+			<p:tab id="joranda" title="Jornadas"
+				rendered="${cicloTrs.indice == 0}">
+				<p:panel header="Jornadas">
+					<p:dataTable id="jornada" var="jornada"
+						value="#{cicloTrs.jornadas}"
+						selection="#{cicloTrs.jornadasSeleccionadas}"
+						rowKey="#{jornada.idJornada}">
+
+						<p:column selectionMode="multiple"
+							style="width:16px;text-align:center" process="jornada" />
+						<p:column headerText="Jornada">
+							<h:outputText value="#{jornada.nombre}" />
+						</p:column>
+
+						<f:facet name="footer">
+							<p:commandButton process="jornada" update=":form:multiCarDetail"
+								icon="ui-icon-search" value="Guardar" onclick=""
+								oncomplete="PF('multiCarDialog').show()" />
+						</f:facet>
+					</p:dataTable>
+				</p:panel>
+			</p:tab>
+
+			<p:commandButton process="jornada" icon="ui-icon-search"
+				value="Mostrar Dialogo Ingreso" onclick=""
+				oncomplete="PF('dialCiclo').show()" />
+
+			<p:tab title="Nivel" rendered="${cicloTrs.indice == 1}">
+				<p:panel header="Nivel">
+					<p:dataTable id="nivel" var="item" value="#{cicloTrs.niveles}"
+						binding="#{cicloTrs.dtNiveles}">
+
+						<p:column headerText="Niveles">
+							<h:outputText value="#{item.nombre}" />
+						</p:column>
+
+						<p:columns value="#{cicloTrs.jornadasSeleccionadas}" var="column">
+							<f:facet name="header">
+								<h:outputText id="test" value="#{column.nombre}" />
+							</f:facet>
+							<p:selectBooleanCheckbox
+								valueChangeListener="${cicloTrs.obtNivelValor}">
+								<p:ajax
+									listener="${cicloTrs.enviar(column.nombre, item.idNivel, column.idJornada)}" />
+							</p:selectBooleanCheckbox>
+						</p:columns>
+
+						<f:facet name="footer">
+							<p:commandButton inmediate="true" icon="ui-icon-search"
+								value="Guardar" process="nivel" type="submit"
+								actionListener="#{cicloTrs.guardarNiveles}" />
+
+						</f:facet>
+					</p:dataTable>
+				</p:panel>
+			</p:tab>
+
+			<p:panel header="Jornadas">
+				<f:facet name="actions">
+					<h:commandLink actionListener="#{cicloTrs.buttonAction}"
+						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+						<h:outputText styleClass="ui-icon ui-icon-help" />
+					</h:commandLink>
+					<h:commandLink
+						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+						<h:outputText styleClass="ui-icon ui-icon-star" />
+					</h:commandLink>
+				</f:facet>
+			</p:panel>
+
+			<p:tab id="Carreras" title="Carreras"
+				rendered="${cicloTrs.indice == 2}">
+				<p:panel header="Carreras" binding="#{cicloTrs.pnlC}">
+				</p:panel>
+			</p:tab>
+
+			<p:commandButton actionListener="#{cicloTrs.atras}"
+				rendered="${cicloTrs.indice > 0}" value="Atras" id="atras"
+				icon="ui-icon-disk" title="Atras" process="@this" update="@form" />
+			<br />
+			<p:commandButton actionListener="#{cicloTrs.siguiente}"
+				rendered="${cicloTrs.indice lt  2}" value="Siguiente" id="Siguiente"
+				icon="ui-icon-disk" title="Siguiente" process="@this" update="@form" />
+
+
+			<p:dialog header="Usted ha seleccionado:" widgetVar="multiCarDialog"
+				modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+				width="300">
+				<p:outputPanel id="multiCarDetail" style="text-align:center;">
+					<ui:repeat value="#{cicloTrs.jornadasSeleccionadas}" var="item">
+						<h:outputText value="#{item.idJornada} - #{item.nombre}"
+							style="display:block" />
+					</ui:repeat>
+				</p:outputPanel>
+			</p:dialog>
+
+			<p:dialog header="Nuevo" widgetVar="dialCiclo" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false" width="350">
+				<p:panelGrid columns="2"
+					columnClasses="ui-grid-col-4,ui-grid-col-10" layout="grid"
+					styleClass="ui-panelgrid-blank">
+
+					<p:outputLabel for="txtIdentificador" value="Identificador" />
+					<p:selectOneMenu id="txtIdentificador">
+						<f:selectItem itemLabel="0" itemValue="" />
+						<f:selectItem itemLabel="1ro." itemValue="1ro" />
+						<f:selectItem itemLabel="2do." itemValue="2do." />
+						<f:selectItem itemLabel="3ro." itemValue="3ro." />
+						<f:selectItem itemLabel="4to." itemValue="4to." />
+						<f:selectItem itemLabel="5to." itemValue="5to." />
+						<f:selectItem itemLabel="6to." itemValue="6to." />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="txtNombre" value="Nombre:" />
+					<p:inputText id="txtNombre" />
+
+				</p:panelGrid>
+			</p:dialog>
+
+		</div>
+
+		<style type="text/css">
+.ui-steps .ui-steps-item {
+	width: 33.33%;
+}
+
+.ui-state-highlight {
+	text-shadow: none !important;
+}
+
+.ui-steps.custom {
+	margin-bottom: 30px;
+}
+
+.ui-steps.custom .ui-steps-item .ui-menuitem-link {
+	height: 10px;
+	padding: 0 1em;
+}
+
+.ui-steps.custom .ui-steps-item .ui-steps-number {
+	background-color: #0081c2;
+	color: #FFFFFF;
+	display: inline-block;
+	width: 30px;
+	border-radius: 10px;
+	margin-top: -10px;
+	margin-bottom: 10px;
+}
+</style>
+	</h:form>
+</h:body>
+</html>

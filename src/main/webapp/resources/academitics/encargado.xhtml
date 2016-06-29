@@ -1,0 +1,67 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:academitics="http://java.sun.com/jsf/composite/academitics">
+
+	<composite:interface />
+
+	<composite:implementation>
+		<p:panel id="catalogoidioma">
+
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton value="Guardar" type="submit" icon="ui-icon-check"
+						process="@this" update="catalogoidioma" styleClass="ui-btn-inline">
+						<f:ajax execute="@form" listener="#{familiarHelper.insertar}" />
+					</p:commandButton>
+					<p:commandButton value="Eliminar" type="submit"
+						icon="ui-icon-delete" action="#{familiarHelper.eliminar}"
+						process="@this" update="catalogoidioma" styleClass="ui-btn-inline">
+						<f:ajax execute="@form" />
+					</p:commandButton>
+					<p:commandButton value="Limpiar" type="submit"
+						icon="ui-icon-refresh" action="#{familiarHelper.limpiar}"
+						process="@this" update="@form" styleClass="ui-btn-inline" />
+				</f:facet>
+
+				<f:facet name="right">
+					<p:commandButton value="Detalle" onclick="PF('dlg1').show();"
+						enabled="false" type="button" icon="ui-icon-info" />
+				</f:facet>
+			</p:toolbar>
+
+
+			<div id="entradas">
+				<p:selectBooleanCheckbox
+					itemLabel="Es esta persona la encargada del Estudiante" />
+				<academitics:nombres persona="#{familiarHelper.nuevo}"
+					nombres="#{familiarHelper.nombres}" />
+			</div>
+			<br />
+
+			<p:dataTable var="objetos" rowIndexVar="rowId"
+				value="#{familiarHelper.setFamiliares}" selectionMode="single"
+				selection="#{familiarHelper.seleccionado}" rowKey="#{objetos[0]}"
+				paginator="true" rows="10" tableStyleClass="ui-table-columntoggle">
+
+				<p:ajax event="rowSelect" listener="#{familiarHelper.onRowSelect}"
+					update="@form" />
+
+				<p:columns value="#{familiarHelper.columns}" var="column"
+					columnIndexVar="colIndex" >
+					<f:facet name="header">
+						<h:outputText value="#{column.header}" />
+					</f:facet>
+					<h:outputText value="#{objetos[column.property]}" />
+				</p:columns>
+
+			</p:dataTable>			
+
+		</p:panel>
+	</composite:implementation>
+</ui:component>

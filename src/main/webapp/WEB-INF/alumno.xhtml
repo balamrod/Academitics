@@ -1,0 +1,285 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:academitics="http://java.sun.com/jsf/composite/academitics">
+
+<f:view renderKitId="PRIMEFACES_MOBILE" />
+
+<h:head>
+</h:head>
+
+<h:body>
+	<pm:page id="first">
+		<pm:header title="Alumno"></pm:header>
+
+		<pm:content>
+			<h:form id="form" style="max-width:1100px;margin:auto;padding:10px;">
+				<p:toolbar>
+					<f:facet name="left">
+						<p:commandButton value="Guardar" type="submit"
+							action="#{alumnoHelper.guardar}" icon="ui-icon-check"
+							styleClass="ui-btn-inline" />
+						<p:commandButton value="Eliminar" type="submit"
+							icon="ui-icon-delete" action="#{idiomaHelper.eliminar}"
+							process="@this" ajax="false" styleClass="ui-btn-inline" />
+						<p:commandButton value="Limpiar" type="submit"
+							icon="ui-icon-refresh" action="#{idiomaHelper.limpiar}"
+							process="@this" update="@form" styleClass="ui-btn-inline" />
+					</f:facet>
+
+					<f:facet name="right">
+						<p:commandButton value="Detalle" onclick="PF('dlg1').show();"
+							enabled="false" type="button" icon="ui-icon-info" />
+					</f:facet>
+				</p:toolbar>
+
+				<academitics:asignacionGeneral />
+
+				<p:panelGrid columns="2" styleClass="ui-responsive">
+					<pm:field>
+						<p:outputLabel for="codmin" value="Código Mineduc:"
+							inmediate="true" />
+						<p:inputText id="codmin"
+							value="#{alumnoHelper.nuevo.codigoMineduc}" />
+					</pm:field>
+					<pm:field>
+						<p:outputLabel for="estado" value="Estado:" />
+						<p:selectOneMenu id="estado"
+							value="#{alumnoHelper.nuevo.estadoAlumno}">
+							<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+							<f:selectItem itemLabel="Preinscrito" itemValue="1" />
+							<f:selectItem itemLabel="Inscrito" itemValue="2" />
+							<f:selectItem itemLabel="Retirado" itemValue="3" />
+							<f:selectItem itemLabel="Expulsado" itemValue="4" />
+							<f:selectItem itemLabel="Suspendido" itemValue="5" />
+						</p:selectOneMenu>
+					</pm:field>
+				</p:panelGrid>
+				<academitics:nombres persona="#{alumnoHelper.nuevo}"
+					nombres="#{alumnoHelper.nombresAlumno}" />
+
+				<div style="clear: both" />
+				<p:accordionPanel>
+					<p:tab title="Datos Generales">
+						<p:panelGrid columns="2" styleClass="ui-responsive">
+							<pm:field>
+								<p:outputLabel for="cel" value="Celular:" />
+								<p:inputText id="cel" value="#{alumnoHelper.nuevo.celular}" />
+							</pm:field>
+							<pm:field>
+								<p:outputLabel for="pasaporte" value="Pasaporte:" />
+								<p:inputText id="pasaporte"
+									value="#{alumnoHelper.nuevo.pasaporte}" />
+							</pm:field>
+							<pm:field>
+								<p:outputLabel for="encargado" value="Encargado:" />
+								<p:selectOneMenu id="encargado">
+									<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+									<f:selectItem itemLabel="Madre" itemValue="1" />
+									<f:selectItem itemLabel="Padre" itemValue="2" />
+									<f:selectItem itemLabel="Abuelo" itemValue="3" />
+								</p:selectOneMenu>
+							</pm:field>
+							<pm:field>
+								<p:outputLabel for="genero" value="Género:" />
+								<p:selectOneButton id="genero"
+									value="#{alumnoHelper.nuevo.genero}">
+									<f:selectItem itemLabel="H" itemValue="true" />
+									<f:selectItem itemLabel="M" itemValue="false" />
+								</p:selectOneButton>
+							</pm:field>
+							<pm:field>
+								<p:outputLabel for="fechaNac" value="Fecha: Nacimiento:" />
+								<p:calendar id="fechaNac" pattern="MM/dd/yyyy"
+									value="#{alumnoHelper.nuevo.fechaNacimiento}" />
+							</pm:field>
+							<pm:field>
+								<p:outputLabel for="correo" value="Correo Electrónico:" />
+								<p:inputText id="correo" value="#{alumnoHelper.nuevo.correo}" />
+							</pm:field>
+							<pm:field>
+								<p:outputLabel for="telem" value="Teléfono Emergencia:" />
+								<p:inputText id="telem"
+									value="#{alumnoHelper.nuevo.telefonoEmergencia}" />
+							</pm:field>
+							<pm:field>
+								<p:outputLabel for="estadocivil" value="Estado Civil:" />
+								<p:selectOneMenu id="estadocivil"
+									value="#{alumnoHelper.nuevo.idEstadoCivil}">
+									<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+									<f:selectItem itemLabel="Soltero@" itemValue="1" />
+									<f:selectItem itemLabel="Casado@" itemValue="2" />
+									<f:selectItem itemLabel="Divorciad@" itemValue="3" />
+								</p:selectOneMenu>
+							</pm:field>
+							<pm:field>
+								<p:outputLabel for="lateralidad" value="Lateralidad:" />
+								<p:selectOneButton id="lateralidad"
+									value="#{alumnoHelper.nuevo.lateralidad}">
+									<f:selectItem itemLabel="Zurdo" itemValue="1" />
+									<f:selectItem itemLabel="Diestro" itemValue="2" />
+									<f:selectItem itemLabel="Ambidiestro" itemValue="3" />
+								</p:selectOneButton>
+							</pm:field>
+							<pm:field>
+								<p:outputLabel for="nacionalidad" value="Nacionalidad:" />
+								<p:selectOneMenu id="nacionalidad"
+									value="#{alumnoHelper.nuevo.nacionalidad}">
+									<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+									<f:selectItem itemLabel="nacional" itemValue="1" />
+									<f:selectItem itemLabel="extranjero" itemValue="2" />
+								</p:selectOneMenu>
+							</pm:field>
+						</p:panelGrid>
+					</p:tab>
+				</p:accordionPanel>
+
+				<div style="clear: both" />
+				<p:accordionPanel>
+					<p:tab title="Ficha">
+						<p:tabView>
+							<p:tab title="Dirección">
+								<p:panelGrid styleClass="ui-responsive">
+									<p:panelGrid styleClass="ui-responsive">
+										<pm:field>
+											<p:outputLabel value="Actual:" />
+											<p:commandButton value="Ingresar/Editar" type="button"
+												icon="ui-icon-check" onclick="PF('dlgDireA').show();" />
+										</pm:field>
+										<p:outputLabel value="#{alumnoHelper.nuevo.direccionActual}" />
+									</p:panelGrid>
+
+									<p:panelGrid styleClass="ui-responsive">
+										<pm:field>
+											<p:outputLabel value="De Nacimiento:" />
+											<p:commandButton value="Ingresar/Editar" type="button"
+												icon="ui-icon-check" onclick="PF('dlgDireN').show();" />
+										</pm:field>
+										<p:outputLabel
+											value="#{alumnoHelper.nuevo.direccionNacimiento}" />
+									</p:panelGrid>
+								</p:panelGrid>
+
+							</p:tab>
+							<p:tab title="Encargad@/s">
+								<p:panelGrid columns="2">
+									<pm:field value="#{alumnoHelper.nuevo.huerfanoMadre}">
+										<p:outputLabel for="huefanoM" value="Huerfano Madre:" />
+										<p:inputSwitch id="huefanoM" onLabel="Si" offLabel="No" />
+									</pm:field>
+									<pm:field value="#{alumnoHelper.nuevo.huerfanoPadre}">
+										<p:outputLabel for="huerfanoP" value="Huerfano Padre:" />
+										<p:inputSwitch id="huerfanoP" onLabel="Si" offLabel="No" />
+									</pm:field>
+								</p:panelGrid>
+								<p:panelGrid columns="3" styleClass="ui-responsive">
+									<p:button outcome="pm:persona" value="Madre"
+										icon="ui-icon-check" styleClass="ui-btn-b"
+										style="width:80%;margin:auto;margin-top:15px" />
+									<p:button outcome="pm:persona" value="Padre"
+										icon="ui-icon-check" styleClass="ui-btn-b"
+										style="width:80%;margin:auto;margin-top:15px" />
+									<p:button outcome="pm:persona" value="Agregar"
+										icon="ui-icon-check" styleClass="ui-btn-b"
+										style="width:80%;margin:auto;margin-top:15px" />
+								</p:panelGrid>
+							</p:tab>
+							<p:tab title="Idiomas">
+								<!-- hay que verificar que si un checkbox es escogido los otros se deseleccionen si aplica. -->
+								<p:panelGrid columns="2" styleClass="ui-responsive">
+									<pm:field>
+										<p:outputLabel for="grupoi" value="Grupo Idioma:" />
+										<p:selectOneMenu id="grupoi">
+											<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+											<f:selectItem itemLabel="Español" itemValue="1" />
+											<f:selectItem itemLabel="Kaqchikel" itemValue="2" />
+										</p:selectOneMenu>
+									</pm:field>
+									<p:commandButton value="nuevo" type="submit"
+										icon="ui-icon-check" styleClass="ui-btn-b"
+										style="width:80%;margin:auto;margin-top:15px" />
+									<pm:field>
+										<p:outputLabel for="idioma" value="Idioma:" />
+										<p:selectOneMenu id="idioma" value="#{alumnoHelper.idioma}">
+											<f:selectItems value="#{alumnoHelper.idiomas}" />
+										</p:selectOneMenu>
+									</pm:field>
+									<p:button outcome="pm:second" value="nuevo"
+										icon="ui-icon-check" styleClass="ui-btn-b"
+										style="width:80%;margin:auto;margin-top:15px" />
+									<pm:field>
+										<p:outputLabel for="comprension" value="Comprensión:" />
+										<p:selectOneMenu id="comprension">
+											<f:selectItem itemLabel="--Seleccione--" itemValue="" />
+											<f:selectItem itemLabel="Entiende_Habla_lee" itemValue="1" />
+											<f:selectItem itemLabel="Habla" itemValue="2" />
+										</p:selectOneMenu>
+									</pm:field>
+									<pm:field>
+										<p:outputLabel for="materno" value="Idioma Materno:" />
+										<p:inputSwitch id="materno" onLabel="Si" offLabel="No" />
+									</pm:field>
+
+								</p:panelGrid>
+								<p:commandButton value="Agregar" type="button"
+									icon="ui-icon-check" styleClass="ui-btn-b" />
+							</p:tab>
+							<p:tab title="Papelería">
+
+							</p:tab>
+						</p:tabView>
+					</p:tab>
+				</p:accordionPanel>
+				<p:dialog header="Detalle" widgetVar="dlgDireA" showEffect="pop">
+					<academitics:direccion direccion="#{alumnoHelper.direccionActual}" />
+					<p:commandButton value="Aceptar" styleClass="ui-btn-b"
+						icon="ui-icon-check" onclick="this.close();"
+						action="#{alumnoHelper.actualizarDireccionActual}" />
+				</p:dialog>
+				<p:dialog header="Detalle" widgetVar="dlgDireN" showEffect="pop">
+					<academitics:direccion
+						direccion="#{alumnoHelper.direccionNacimiento}" />
+					<p:commandButton value="Aceptar" styleClass="ui-btn-b"
+						icon="ui-icon-check" onclick="this.close();"
+						action="#{alumnoHelper.actualizarDireccionNacimiento}" />
+				</p:dialog>
+			</h:form>
+		</pm:content>
+	</pm:page>
+
+	<pm:page id="second">
+		<pm:header title="Idioma"></pm:header>
+		<pm:content>
+			<h:form id="form" style="max-width:1100px;margin:auto;padding:10px;">
+				<p:commandButton outcome="pm:first" value="Regresar"
+					styleClass="ui-btn-b"
+					actionListener="#{alumnoHelper.actualizarIdiomas}"
+					onclick="document.getElementById('regresar').onclick()" />
+				<academitics:catalogoIdioma />
+				<p:button id="regresar" outcome="pm:first" value="Regresar"
+					styleClass="ui-btn-b" render="false" />
+			</h:form>
+		</pm:content>
+	</pm:page>
+
+	<pm:page id="persona">
+		<pm:header title="Persona"></pm:header>
+		<pm:content>
+			<h:form style="max-width:1100px;margin:auto;padding:10px;">
+				<p:commandButton outcome="pm:first" value="Regresar"
+					styleClass="ui-btn-b"
+					actionListener="#{alumnoHelper.actualizarIdiomas}"
+					onclick="document.getElementById('regresar').onclick()" />
+				<p:selectBooleanCheckbox
+					itemLabel="Es esta persona la encargada del Estudiante" />
+				<academitics:nombres persona="#{alumnoHelper.nuevo}"
+					nombres="#{alumnoHelper.nombresAlumno}" />				
+				<p:button id="regresar" outcome="pm:first" value="Regresar"
+					styleClass="ui-btn-b" render="false" />
+			</h:form>
+		</pm:content>
+	</pm:page>
+</h:body>
+</html>

@@ -1,0 +1,72 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+	<composite:interface>
+
+	</composite:interface>
+
+	<composite:implementation>
+		<p:panelGrid columns="2" layout="grid" style="width:100%"
+			columnClasses="ui-grid-col-2,ui-grid-col-10">
+			<p:panelGrid>
+
+				<h:graphicImage name="main/images/Hermione.jpg"
+					style="height:149px;display: block;margin-left: auto;margin-right: auto;margin-top:7px" />
+				<p:separator />
+				<p:button value="Editar" icon="ui-icon-star" />
+			</p:panelGrid>
+			<p:panelGrid>
+
+				<p:panelGrid columns="4" layout="grid">
+
+					<p:outputLabel value="Nombres:" />
+					<p:outputLabel value="Hermoine " />
+
+					<p:outputLabel value="Apellidos:" />
+					<p:outputLabel value="Granger" />
+
+					<p:outputLabel value="Pueblo:" />
+					<p:outputLabel value="Maga Oscura" />
+
+					<p:outputLabel value="Comunidad Étnica:" />
+					<p:outputLabel value="Griffindor" />
+
+					<p:outputLabel value="CUI:" />
+					<p:outputLabel value="1998 53487 0410" />
+
+					<p:outputLabel value="Teléfono:" />
+					<p:outputLabel value="1234-5678" />
+
+					<p:outputLabel value="No. de carnet:" />
+					<p:outputLabel value="0901-07-2210" />
+
+					<p:outputLabel value="Cursando:" />
+					<p:outputLabel value="4to - Magisterio de Educación infantil" />
+
+				</p:panelGrid>
+				<p:separator />
+				
+				<p:panelGrid columns="2" layout="grid"
+					columnClasses="ui-grid-col-3,ui-grid-col-10">
+
+					<p:outputLabel value="Dirección:" />
+					<p:outputLabel value="39 Av. 2-11 Z.11 Col San Fernando I" />
+
+					<p:outputLabel value="Correo electrónico:" />
+					<p:outputLabel value="alguncorreo@dominio.com"/>
+
+				</p:panelGrid>
+				<p:separator />
+				<p:button value="Ver toda mi información" icon="ui-icon-star" />
+			</p:panelGrid>
+		</p:panelGrid>
+
+
+	</composite:implementation>
+</ui:component>

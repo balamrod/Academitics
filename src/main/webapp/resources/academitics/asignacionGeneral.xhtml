@@ -1,0 +1,53 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:cc="http://java.sun.com/jsf/composite">
+
+	<cc:interface />
+
+	<cc:implementation>
+		<p:accordionPanel>
+			<p:tab title="Asignación General" id="panel">
+				<p:panelGrid id="AsigGeneralControl" columns="2"
+					styleClass="ui-responsive" collapsed="false">
+					<pm:field>
+						<p:outputLabel for="jornada" value="Jornada:" />
+						<h:selectOneMenu id="jornada" value="#{asignacionGeneral.jornada}">
+							<p:ajax listener="#{asignacionGeneral.actualizarJornadas}"
+								update="@form" />
+							<f:selectItems value="#{asignacionGeneral.jornadas}" />
+						</h:selectOneMenu>
+					</pm:field>
+					<pm:field id="cbonivel">
+						<p:outputLabel for="nivel" value="Nivel:" />
+						<h:selectOneMenu id="nivel" value="#{asignacionGeneral.nivel}">
+							<p:ajax listener="#{asignacionGeneral.actualizarNiveles}" update="@form"  />
+							<f:selectItems value="#{asignacionGeneral.niveles}" />
+						</h:selectOneMenu>
+					</pm:field>
+					<pm:field id="cbocarrera">
+						<p:outputLabel for="carrera" value="Carrera:" />
+						<h:selectOneMenu id="carrera" value="#{asignacionGeneral.carrera}">
+							<p:ajax update="@form"
+								listener="#{asignacionGeneral.actualizarCarreras}" execute="@this" />
+							<f:selectItems value="#{asignacionGeneral.carreras}" />
+						</h:selectOneMenu>
+					</pm:field>
+					<pm:field id="cboGrado">
+						<p:outputLabel for="grado" value="Grado:" />
+						<h:selectOneMenu id="grado" value="#{asignacionGeneral.grado}">
+							<f:selectItems value="#{asignacionGeneral.grados}" />
+						</h:selectOneMenu>
+					</pm:field>
+				</p:panelGrid>
+
+
+
+			</p:tab>
+		</p:accordionPanel>
+	</cc:implementation>
+</ui:component>

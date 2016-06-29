@@ -1,0 +1,7 @@
+label{ width: 41%; display: inline-block;}
+        .mobi-fieldset-row > *{box-sizing: border-box;}
+        .mobi-fieldset-row > input{ width: 50%; display: inline-block;}
+        .mobi-date-wrapper{ width: 40%; display: inline-block; }
+        .mobi-date-wrapper .mobi-input-text{ width: 55%; }
+		.mobi-button{ float: right; margin:0 10px 10px;}
+		.mobi-fieldset{ clear: both; }

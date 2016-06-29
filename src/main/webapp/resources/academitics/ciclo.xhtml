@@ -1,0 +1,132 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:academitics="http://java.sun.com/jsf/composite/academitics">
+
+	<composite:interface />
+
+	<composite:implementation>
+			
+			<p:steps activeIndex="#{cicloTrs.indice}" id="stepCiclo">
+				<p:menuitem value="Jornadas" url="www.google.com" />
+				<p:menuitem value="Nivel" />
+				<p:menuitem value="Carreras" />
+			</p:steps>
+
+			<p:tab id="joranda" title="Jornadas"
+				rendered="${cicloTrs.indice == 0}">
+				<p:panel header="Jornadas">
+					<p:dataTable id="jornada" var="jornada"
+						value="#{cicloTrs.jornadas}"
+						selection="#{cicloTrs.jornadasSeleccionadas}"
+						rowKey="#{jornada.idJornada}">
+
+						<p:column selectionMode="multiple"
+							style="width:16px;text-align:center" process="jornada" />
+						<p:column headerText="Jornada">
+							<h:outputText value="#{jornada.nombre}" />
+						</p:column>
+
+						<f:facet name="footer">
+							<p:commandButton process="jornada" 
+								icon="ui-icon-search" value="Guardar" onclick=""
+								oncomplete="PF('multiCarDialog').show()" />
+						</f:facet>
+					</p:dataTable>
+				</p:panel>
+			</p:tab>
+
+			<p:tab title="Nivel" rendered="${cicloTrs.indice == 1}">
+				<p:panel header="Nivel">
+					<p:dataTable id="nivel" var="item" value="#{cicloTrs.niveles}"
+						binding="#{cicloTrs.dtNiveles}">
+
+						<p:column headerText="Niveles">
+							<h:outputText value="#{item.nombre}" />
+						</p:column>
+
+						<p:columns value="#{cicloTrs.jornadasSeleccionadas}" var="column">
+							<f:facet name="header">
+								<h:outputText id="test" value="#{column.nombre}" />
+							</f:facet>
+							<p:selectBooleanCheckbox
+								valueChangeListener="${cicloTrs.obtNivelValor}">
+								<p:ajax
+									listener="${cicloTrs.enviar(column.nombre, item.idNivel, column.idJornada)}" />
+							</p:selectBooleanCheckbox>
+						</p:columns>
+
+						<f:facet name="footer">
+							<p:commandButton inmediate="true" icon="ui-icon-search"
+								value="Guardar" process="nivel" type="submit"
+								actionListener="#{cicloTrs.guardarNiveles}" />
+
+						</f:facet>
+					</p:dataTable>
+				</p:panel>
+			</p:tab>
+
+			<p:tab id="Carreras" title="Carreras"
+				rendered="${cicloTrs.indice == 2}">
+				<p:panel header="Carreras">
+					<p:panelGrid binding="#{cicloTrs.panelGrid}">
+					</p:panelGrid>
+				</p:panel>
+			</p:tab>
+
+			<p:commandButton actionListener="#{cicloTrs.atras}"
+				rendered="${cicloTrs.indice > 0}" value="Atras" id="atras"
+				icon="ui-icon-disk" title="Atras" process="@this" update="@form" />
+			<br />
+			<p:commandButton actionListener="#{cicloTrs.siguiente}"
+				rendered="${cicloTrs.indice lt  2}" value="Siguiente" id="Siguiente"
+				icon="ui-icon-disk" title="Siguiente" process="@this" update="@form" />
+
+
+			<p:dialog header="Usted ha seleccionado:" widgetVar="multiCarDialog"
+				modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+				width="300">
+				<p:outputPanel id="multiCarDetail" style="text-align:center;">
+					<ui:repeat value="#{cicloTrs.jornadasSeleccionadas}" var="item">
+						<h:outputText value="#{item.idJornada} - #{item.nombre}"
+							style="display:block" />
+					</ui:repeat>
+				</p:outputPanel>
+			</p:dialog>
+		
+
+		<style type="text/css">
+.ui-steps .ui-steps-item {
+	width: 33.33%;
+}
+
+.ui-state-highlight {
+	text-shadow: none !important;
+}
+
+.ui-steps.custom {
+	margin-bottom: 30px;
+}
+
+.ui-steps.custom .ui-steps-item .ui-menuitem-link {
+	height: 10px;
+	padding: 0 1em;
+}
+
+.ui-steps.custom .ui-steps-item .ui-steps-number {
+	background-color: #0081c2;
+	color: #FFFFFF;
+	display: inline-block;
+	width: 30px;
+	border-radius: 10px;
+	margin-top: -10px;
+	margin-bottom: 10px;
+}
+</style>
+</composite:implementation>
+</ui:component>

@@ -1,0 +1,188 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+<h:head>
+</h:head>
+
+<h:body>
+	<h:form id="form" style="margin:auto;padding:10px;font-size:small">
+		<div class="ui-fluid">
+			<p:panelGrid columns="2" id="pnlIng" layout="grid"
+				columnClasses="ui-grid-col-4,ui-grid-col-10">
+				<p:tree value="#{cfgTablas.root}" var="node" dynamic="true"
+					expandedIcon="ui-icon-folder-open" selectionMode="single"
+					selection="#{cfgTablas.selectedNode}"
+					collapsedIcon="ui-icon-folder-collapsed">
+					<p:ajax event="select" listener="#{cfgTablas.obtenerDatos}"
+						update="form:tablas" />
+					<p:treeNode expandedIcon="ui-icon-folder-open"
+						collapsedIcon="ui-icon-folder-collapsed">
+						<h:outputText value="#{node}" />
+					</p:treeNode>
+				</p:tree>
+
+				<p:dataTable id="tablas" var="reg" rowIndexVar="rowId"
+					resizableColumns="true" liveResize="true" draggableRows="true"
+					value="#{cfgTablas.configTabla}" editable="true">
+
+					<f:facet name="header">
+						<p:panelGrid id="catalogoidioma" columns="3" layout="grid"
+							styleClass="ui-panelgrid-blank">
+
+							<p:commandButton id="Complementar" type="submit"
+								value="Complementar Orden" action="#{cfgTablas.aplicarOrden}"
+								icon="ui-icon-calculator" update="tablas">
+								<f:ajax />
+							</p:commandButton>
+
+							<p:commandButton id="generar" type="submit" value="Generar Query"
+								action="#{cfgTablas.generarQuery}" icon="ui-icon-calculator">
+								<f:ajax />
+							</p:commandButton>
+
+							<p:commandButton id="guardar" type="submit" value="Guardar"
+								action="#{cfgTablas.guardar}" icon="ui-icon-calculator"
+								>
+								<f:ajax />
+							</p:commandButton>
+
+						</p:panelGrid>
+					</f:facet>
+
+
+					<p:ajax event="rowEdit" listener="#{cfgTablas.onRowEdit}" />
+					<p:ajax event="rowEditCancel" listener="#{cfgTablas.onRowCancel}" />
+					<p:ajax event="rowReorder" listener="#{cfgTablas.onRowReorder}"
+						update=":form:tablas" />
+
+					<p:column headerText="#" style="width:15px" sortBy="#{reg.orden}">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{reg.orden}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{reg.orden}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Nombre Columna" style="width:200px">
+						<h:outputText value="#{reg.id.nombreCampo}" />
+					</p:column>
+
+					<p:column headerText="Formato" style="width:100px">
+						<h:outputText value="#{reg.formato}" />
+					</p:column>
+
+					<p:column headerText="Tabla" style="width:100px">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{reg.id.tabla}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{reg.id.tabla}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="id" style="width:20px">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{reg.id_1}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{reg.id_1}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Etiqueta" style="width:200px">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{reg.etiqueta}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{reg.etiqueta}" style="width:100%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Prin." style="width:30px">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{reg.seMuestraEnTabla}" />
+							</f:facet>
+							<f:facet name="input">
+								<h:selectOneMenu value="#{reg.seMuestraEnTabla}"
+									style="width:100%">
+									<f:selectItem itemValue="0" itemLabel="No" />
+									<f:selectItem itemValue="1" itemLabel="Si" />
+								</h:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Req." style="width:30px">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{reg.requerido}" />
+							</f:facet>
+							<f:facet name="input">
+								<h:selectOneMenu style="width:100%" value="#{reg.requerido}">
+									<f:selectItem itemValue="0" itemLabel="No" />
+									<f:selectItem itemValue="1" itemLabel="Si" />
+								</h:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Tamaño" style="width:70px">
+						<h:outputText value="#{reg.max}" />
+					</p:column>
+
+					<p:column headerText="Validación" style="width:150px">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{reg.tipoValidacion}" />
+							</f:facet>
+							<f:facet name="input">
+								<h:selectOneMenu value="#{reg.tipoValidacion}"
+									style="width:100%">
+									<f:selectItem itemValue="" itemLabel="Ninguno" />
+									<f:selectItem itemValue="Fecha" itemLabel="Fecha" />
+									<f:selectItem itemValue="Numero Teléfono"
+										itemLabel="Numero Teléfono" />
+									<f:selectItem itemValue="correo electrónico"
+										itemLabel="correo electrónico" />
+								</h:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column style="width:15px">
+						<p:rowEditor />
+					</p:column>
+
+					<f:facet name="footer">
+						<p:commandButton id="nuevo" type="submit" value="Visualizar"
+							action="#{idiomaHelper.nuevo}" icon="ui-icon-calculator"
+							onclick="PF('dlgIng').show()">
+							<f:ajax />
+						</p:commandButton>
+					</f:facet>
+				</p:dataTable>
+
+			</p:panelGrid>
+
+			<p:dialog header="Ingreso" widgetVar="dlgQuery" modal="true"
+				style="min-width: 40px;" rendered="true" showEffect="fade"
+				hideEffect="fade">
+				<p:editor id="editor" widgetVar="editorWidget" value="#{cfgTablas.strTabla}" />
+			</p:dialog>
+
+		</div>
+	</h:form>
+</h:body>
+</html>
