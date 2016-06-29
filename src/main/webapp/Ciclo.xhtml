@@ -74,19 +74,7 @@
 					</p:dataTable>
 				</p:panel>
 			</p:tab>
-
-			<p:panel header="Jornadas">
-				<f:facet name="actions">
-					<h:commandLink actionListener="#{cicloTrs.buttonAction}"
-						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
-						<h:outputText styleClass="ui-icon ui-icon-help" />
-					</h:commandLink>
-					<h:commandLink
-						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
-						<h:outputText styleClass="ui-icon ui-icon-star" />
-					</h:commandLink>
-				</f:facet>
-			</p:panel>
+			
 
 			<p:tab id="Carreras" title="Carreras"
 				rendered="${cicloTrs.indice == 2}">
@@ -102,7 +90,19 @@
 				rendered="${cicloTrs.indice lt  2}" value="Siguiente" id="Siguiente"
 				icon="ui-icon-disk" title="Siguiente" process="@this" update="@form" />
 
-
+			<p:panel header="Jornadas">
+				<f:facet name="actions">
+					<h:commandLink actionListener="#{cicloTrs.buttonAction}"
+						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+						<h:outputText styleClass="ui-icon ui-icon-help" />
+					</h:commandLink>
+					<h:commandLink
+						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+						<h:outputText styleClass="ui-icon ui-icon-star" />
+					</h:commandLink>
+				</f:facet>
+			</p:panel>
+			
 			<p:dialog header="Usted ha seleccionado:" widgetVar="multiCarDialog"
 				modal="true" showEffect="fade" hideEffect="fade" resizable="false"
 				width="300">
